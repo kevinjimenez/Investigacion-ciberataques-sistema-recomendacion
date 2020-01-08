@@ -10,9 +10,8 @@ import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
 fileDir = os.path.dirname(os.path.abspath(__file__))
-parentDir = os.path.dirname(fileDir)
-path_datos_raiting = parentDir + '/datos-prueba/u.data'
-path_datos_nombre_categoria = parentDir + '/datos-prueba/Movie_Id_Titles.csv'
+path_datos_raiting = fileDir + '/datos-prueba/u.data'
+path_datos_nombre_categoria = fileDir + '/datos-prueba/Movie_Id_Titles.csv'
 
 # leer archivo de ratings por usuario y pelicula
 df = pd.read_csv(path_datos_raiting, sep='\t', names=['user_id','item_id','rating','timestamp'])
