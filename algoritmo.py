@@ -23,18 +23,17 @@ df.head(10)
 titulos_peliculas = pd.read_csv(path_datos_nombre_categoria)
 # listar 10 primeros registros del archivo de titulos de peliculas
 titulos_peliculas.head(10)
-
+#print(titulos_peliculas)
 
 # union de los dataframes de ratings con los titulos de peliculas con su id  
 df = pd.merge(df, titulos_peliculas, on='item_id')
 df.head(20)
-
 # los raitings agrupados por titulo y calculando 
 # la media x su raiting media o promedio de cada pelicula
-ratings = pd.DataFrame(df.groupby('title')['rating'].mean())
+ratings = pd.DataFrame(df.groupby(['title', 'description'])['rating'].mean())
 ratings.head(10)
 
-ratings['numero_de_rating'] = df.groupby('title')['rating'].count()
+ratings['numero_de_rating'] = df.groupby(['title', 'description'])['rating'].count()
 ratings.head()
 
 matriz_pelicula = df.pivot_table(index='user_id', columns='title', values='rating')
