@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
+import pandas
 
 class RecopilacionDatosSymantec(scrapy.Spider):
     name = 'recopilacion-datos-symantec'    
@@ -14,8 +15,7 @@ class RecopilacionDatosSymantec(scrapy.Spider):
                 yield scrapy.Request(next_page, callback=self.parse_ataque)
 
     def parse_ataque(self,response):
-        valor = ""
-        valor1 = ""
+        valor = []        
         tipoAtaque = response.css('.contentPane > h1::text').extract_first()        
         raiting = response.css('div > .bckPadLG > h3::text').extract_first()
         descripcionRaiting = response.xpath('//div[@class="bckPadLG bckSolidWht unit"]/text()').getall()                        
@@ -23,16 +23,11 @@ class RecopilacionDatosSymantec(scrapy.Spider):
         f.write(str(tipoAtaque).strip()+"\t"+str(raiting).strip()+"\t"+str(descripcionRaiting[1]).strip()+"\n")                
         f.close()
         a = response.css('div > .bckPadLG > .cbMrgnTopLG')                
-        for aa in a:                        
-            t = aa.css('*::text').getall()
-            valor = t[1]
-            valor1 = t[2]
-            print(valor1)
-            f = open("informacion_ataques.data", "a")        
-            f.write(str(t[1]).strip()+": "+str(t[2]).strip()+"\n")                
-            f.close()
+        for aa in a:  
+            t = aa.css('*::text').getall()            
+            valor.append(t);                         
             #print(t, len(t), type(t))        
-        #print(descripcionRaiting)
+        print(valor)
             
         #f = open("data_sets.data", "a")        
         #f.write(str(tipoAtaque).strip()+"\t"+str(descripcionAtaque[1]).strip()+"\t"+str(raiting).strip()+"\t"+str(descripcionRaiting[1]).strip()+"\n")                
