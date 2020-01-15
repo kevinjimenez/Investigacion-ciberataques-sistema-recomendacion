@@ -10,38 +10,46 @@ import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
 fileDir = os.path.dirname(os.path.abspath(__file__))
-path_datos_raiting = fileDir + '/datos-prueba/u.data'
-path_datos_nombre_categoria = fileDir + '/datos-prueba/Movie_Id_Titles.csv'
+path_datos_raiting = fileDir + '/datos-prueba/raiting_25.csv'
+path_datos_nombre_categoria = fileDir + '/datos-prueba/datos_valores_25.csv'
 
 # leer archivo de ratings por usuario y pelicula
-df = pd.read_csv(path_datos_raiting, sep='\t', names=['user_id','item_id','rating','timestamp'])
+df = pd.read_csv(path_datos_raiting, sep=',', names=['user_id','id_attack','rating'])
 # listar 10 primeros registros del archivo de ratings
 df.head(10)
-
+print(df.head(10))
 
 # leer archivo de titulos de peliculas con su id
+
 titulos_peliculas = pd.read_csv(path_datos_nombre_categoria)
 # listar 10 primeros registros del archivo de titulos de peliculas
 titulos_peliculas.head(10)
+print(titulos_peliculas.head(10))
 #print(titulos_peliculas)
 
 # union de los dataframes de ratings con los titulos de peliculas con su id  
-df = pd.merge(df, titulos_peliculas, on='item_id')
+
+df = pd.merge(df, titulos_peliculas, on='id_attack')
 df.head(20)
+print(df.head(20))
 # los raitings agrupados por titulo y calculando 
 # la media x su raiting media o promedio de cada pelicula
-ratings = pd.DataFrame(df.groupby(['title', 'description'])['rating'].mean())
+
+ratings = pd.DataFrame(df.groupby(['name'])['rating'].mean())
 ratings.head(10)
+print(ratings.head())
 
-ratings['numero_de_rating'] = df.groupby(['title', 'description'])['rating'].count()
+ratings['numero_de_rating'] = df.groupby(['name'])['rating'].count()
 ratings.head()
+print(ratings.head())
 
-matriz_pelicula = df.pivot_table(index='user_id', columns='title', values='rating')
-matriz_pelicula.head(10)
+matriz_pelicula = df.pivot_table(index='user_id', columns='name', values='rating')
+matriz_pelicula.head()
+print(matriz_pelicula.head())
 
 
 ratings.sort_values('numero_de_rating', ascending=False).head(10)
-
+print(ratings.sort_values('numero_de_rating', ascending=False).head(10))
 
 print("Ingrese palabra:") 
 palabra = input()
@@ -61,9 +69,9 @@ if palabra != "" :
 		corr.head()
 
 		corr = corr.join(ratings['numero_de_rating'],how='left', lsuffix='_left', rsuffix='_right')
-		corr.head(10)
+		corr.head()
 
-		items_similares = corr[corr['numero_de_rating'] > 100].sort_values(by='correlation', ascending=False).head(10)
+		items_similares = corr[corr['numero_de_rating'] > 2].sort_values(by='correlation', ascending=False).head(10)
 		print(items_similares)
 	except KeyError:
 		print("Oops!  La palabra ingresado no se encuetra registarda.  Intenta de nuevo...")
