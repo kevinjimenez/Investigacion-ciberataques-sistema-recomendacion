@@ -3850,3 +3850,67 @@ Web Attack: Java JMX RCE CVE-2013-0422 5	Severity: High	This attack could pose a
 Web Attack: Java JMX RCE CVE-2013-0422	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
 Web Attack: Java Deployment Toolkit Input Validation CVE-2010-0886	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
 Web Attack: Java Plugin LaunchJNLP DocBase CVE-2010-3552	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Apache Jetspeed Arbitrary File Upload	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: ALLMediaServer Buffer Overflow	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Android Metasploit Exploit Download	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Apache ActiveMQ RCE	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack Signatures	None	
+Attack: AjaXplorer Remote Command Injection	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Apache Jetspeed User Manager Service SQL Injection	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: AmmSoft ScriptFTP CVE-2011-3976	Severity: Medium	This attack could pose a moderate security threat. It does not require immediate action.
+Attack: Agilent Feature Extraction CVE-2015-2092	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Advantech WebAccess webvrpcs Service DrawSrv TagGroup Buffer Overflow	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Advantech WebAccess webvrpcs Service BwWebSvc ProjectName sprintf Buffer Overflow	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+WuFTPd Site Exec BO	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Advantech WebAccess Webvrpcs RCE Exploit	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Witty Worm Propagation	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: AIS Logistics ESEL-Server CVE-2019-10123	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Aloaha PDF Suite CVE-2013-4978	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: ZXV10 Router Remote Code Execution	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Advantech WebAccess SCADA Webvrpcs ViewDll1 Buffer Overflow Exploit	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: ALLPlayer m3u File BO	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Zyxel Router Command Injection	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+WuFTPd Heap BO	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Zoom Client Security ByPass CVE-2019-13450	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: ZyNOS Information Disclosure	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Zenworks Cnfg Mgmt RCE	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Xiongmai UC HTTPD BO CVE-2018-10088	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: XML External Entity Attack	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: XMPlay Playlist ASX	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: zBlog Authenticated PHP Code Execution	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: X360 VideoPlayer ActiveX BO	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: YonYou Ufmail File Upload Vulnerability	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: X97M.Laroux Download 2	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack Signatures	None	
+Attack: Aloaha PDF Suite CVE-2013-4978	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: AIS Logistics ESEL-Server CVE-2019-10123	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: ALLMediaServer Buffer Overflow	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: AmmSoft ScriptFTP CVE-2011-3976	Severity: Medium	This attack could pose a moderate security threat. It does not require immediate action.
+Attack: Advantech WebAccess webvrpcs Service DrawSrv TagGroup Buffer Overflow	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Android Metasploit Exploit Download	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: AjaXplorer Remote Command Injection	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Advantech WebAccess webvrpcs Service BwWebSvc ProjectName sprintf Buffer Overflow	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: ALLPlayer m3u File BO	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Advantech WebAccess Webvrpcs RCE Exploit	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Advantech WebAccess Node certUpdate Directory Traversal RCE 2	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Advantech WebAccess SCADA Webvrpcs ViewDll1 Buffer Overflow Exploit	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Agilent Feature Extraction CVE-2015-2092	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Advantech WebAccess Node certUpdate Directory Traversal RCE	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+WuFTPd Site Exec BO	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+WuFTPd Heap BO	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Symantec SEDR Cross Site Scripting	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Firefox Tor Bundle Exploit	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Attack: Advantech WebAccess CVE-2017-16720 Activity	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Mass Injection Website 7	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Witty Worm Propagation	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Infostealer.Lokibot Download	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Zyxel Router Command Injection	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: ZyNOS Information Disclosure	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Unwanted Browser Notification Website 11	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: ZXV10 Router Remote Code Execution	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Zenworks Cnfg Mgmt RCE	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Zoom Client Security ByPass CVE-2019-13450	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: Xiongmai UC HTTPD BO CVE-2018-10088	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: zBlog Authenticated PHP Code Execution	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: XMPlay Playlist ASX	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.
+Web Attack: XML External Entity Attack	Severity: High	This attack could pose a serious security threat. You should take immediate action to stop any damage or prevent further damage from happening.

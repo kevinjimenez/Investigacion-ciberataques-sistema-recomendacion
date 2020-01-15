@@ -22,12 +22,13 @@ class RecopilacionDatosSymantec(scrapy.Spider):
         f = open("ataques_raiting.data", "a")        
         f.write(str(tipoAtaque).strip()+"\t"+str(raiting).strip()+"\t"+str(descripcionRaiting[1]).strip()+"\n")                
         f.close()
-        a = response.css('div > .bckPadLG > .cbMrgnTopLG')                
-        for aa in a:  
+        a = response.css('div > .bckPadLG > .cbMrgnTopLG::text').getall()
+
+        """for aa in a:  
             t = aa.css('*::text').getall()            
             valor.append(t);                         
-            #print(t, len(t), type(t))        
-        print(valor)
+            #print(t, len(t), type(t))        """
+        print(a)
             
         #f = open("data_sets.data", "a")        
         #f.write(str(tipoAtaque).strip()+"\t"+str(descripcionAtaque[1]).strip()+"\t"+str(raiting).strip()+"\t"+str(descripcionRaiting[1]).strip()+"\n")                
