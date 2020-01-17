@@ -17,40 +17,30 @@ path_datos_nombre_categoria = fileDir + '/datos-prueba/datos_valores_25.csv'
 df = pd.read_csv(path_datos_raiting, sep=',', names=['user_id','id_attack','rating'])
 # listar 10 primeros registros del archivo de ratings
 df.head(10)
-print(df.head(10))
-
 # leer archivo de titulos de peliculas con su id
 
-titulos_peliculas = pd.read_csv(path_datos_nombre_categoria)
+items = pd.read_csv(path_datos_nombre_categoria)
 # listar 10 primeros registros del archivo de titulos de peliculas
-titulos_peliculas.head(10)
-print(titulos_peliculas.head(10))
+items.head(10)
 #print(titulos_peliculas)
 
 # union de los dataframes de ratings con los titulos de peliculas con su id  
 
-df = pd.merge(df, titulos_peliculas, on='id_attack')
+df = pd.merge(df, items, on='id_attack')
 df.head(20)
-print(df.head(20))
 # los raitings agrupados por titulo y calculando 
 # la media x su raiting media o promedio de cada pelicula
 
-ratings = pd.DataFrame(df.groupby(['name'])['rating'].mean())
+ratings = pd.DataFrame(df.groupby(['name','description','criticidad'])['rating'].mean())
 ratings.head(10)
-print(ratings.head())
 
-ratings['numero_de_rating'] = df.groupby(['name'])['rating'].count()
+ratings['numero_de_rating'] = df.groupby(['name','description','criticidad'])['rating'].count()
 ratings.head()
-print(ratings.head())
 
 matriz_pelicula = df.pivot_table(index='user_id', columns='name', values='rating')
 matriz_pelicula.head()
-print(matriz_pelicula.head())
-
 
 ratings.sort_values('numero_de_rating', ascending=False).head(10)
-print(ratings.sort_values('numero_de_rating', ascending=False).head(10))
-
 print("Ingrese palabra:") 
 palabra = input()
 
