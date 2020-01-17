@@ -1,4 +1,4 @@
-id_attack,name,description,criticidad,recomendacion
+item_id,name,description,criticidad,recomendacion
 "18","CWE-94: Improper Control of Generation of Code ('Code Injection')","The software constructs all or part of a code segment using externally-influenced input from an upstream component, but it does not neutralize or incorrectly neutralizes special elements that could modify the syntax or behavior of the intended code segment.","Medium",""
 "17","CWE-611: Improper Restriction of XML External Entity Reference","The software processes an XML document that can contain XML entities with URIs that resolve to documents outside of the intended sphere of control, causing the product to embed incorrect documents into its output.","None"
 "16","CWE-434: Unrestricted Upload of File with Dangerous Type","The software allows the attacker to upload or transfer files of dangerous types that can be automatically processed within the product's environment.","Medium",""
