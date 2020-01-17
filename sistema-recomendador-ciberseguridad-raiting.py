@@ -8,7 +8,6 @@ path_datos_raiting = fileDir + '/datos-prueba/raiting_25.csv'
 path_datos_ataques = fileDir + '/datos-prueba/datos_valores_25.csv'
 
 
-
 raitings = pd.read_csv(path_datos_raiting, sep=',', names=['user_id','item_id','rating'])
 print(raitings.head())
 
@@ -40,7 +39,6 @@ print("+++++++++++++++++++++++++++")
 
 if palabra != "" :
 	try:
-		numero_usuarios = 0
 		palabra_buscar = palabra.strip()
 		user_rating = matriz_usuario_ataque[palabra_buscar]
 		user_rating.head()
@@ -53,21 +51,17 @@ if palabra != "" :
 
 		correlacion_recomendaciones = correlacion_recomendaciones.join(media_ataques_raitings['numero_de_rating'],how='left', lsuffix='_left', rsuffix='_right')
 		correlacion_recomendaciones.head()
-		print(numero_usuarios)
-		if numero_usuarios > 0:
-			
-			recomendaciones = correlacion_recomendaciones[correlacion_recomendaciones['numero_de_rating'] > 2].sort_values(by='correlation', ascending=False).head()
-			print("*******************************************")
-			print("*******************************************")
-			print("-------------------------------------------")
-			print("LISTA DE RECOMENDACIONES PARA: ", palabra )
-			print("-------------------------------------------")		
-			print(recomendaciones)
-			print("*******************************************")		
-			print("*******************************************")		
-			print("*******************************************")
-		else:
-			print("Oops!  No existen usuarios .  Intenta de nuevo...")					 
+
+		recomendaciones = correlacion_recomendaciones[correlacion_recomendaciones['numero_de_rating'] > 2].sort_values(by='correlation', ascending=False).head()
+		print("*******************************************")
+		print("*******************************************")
+		print("-------------------------------------------")
+		print("LISTA DE RECOMENDACIONES PARA: ", palabra )
+		print("-------------------------------------------")		
+		print(recomendaciones)
+		print("*******************************************")		
+		print("*******************************************")		
+		print("*******************************************")		
 	except KeyError:
 		print("Oops!  La palabra ingresado no se encuetra registarda.  Intenta de nuevo...")
 else:
