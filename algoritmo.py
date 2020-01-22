@@ -14,8 +14,8 @@ def recomendacion(anomalia,raiz):
 	raitings = pd.read_csv(path_datos_raiting, sep=',', names=['user_id','item_id','rating'])
 	
 	style = ttk.Style()
-	style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=('Calibri', 11)) # Modify the font of the body
-	style.configure("mystyle.Treeview.Heading", font=('Calibri', 12,'bold')) # Modify the font of the headings
+	style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=('Verdana', 11)) # Modify the font of the body
+	style.configure("mystyle.Treeview.Heading", font=('Verdana', 12,'bold')) # Modify the font of the headings
 	style.layout("mystyle.Treeview", [('mystyle.Treeview.treearea', {'sticky': 'nswe'})]) # Remove the borders		
 	treeview=ttk.Treeview(raiz,style="mystyle.Treeview")
 	treeview.tag_configure('odd', background='#E8E8E8')
@@ -29,8 +29,8 @@ def recomendacion(anomalia,raiz):
 		
 	treeview["columns"]=("#1","#2")
 	treeview.column('#0', width=800, anchor='w') 
-	treeview.column('#1', width=100, anchor='w') 
-	treeview.column('#2', width=20, anchor='w') 
+	treeview.column('#1', width=20, anchor='w') 
+	treeview.column('#2', width=100, anchor='w') 
 	treeview.heading('#0', text='Anomalia')
 	treeview.heading('#1', text='rating')
 	treeview.heading('#2', text='numero raitings')			
@@ -106,7 +106,7 @@ raiz.columnconfigure(0, weight=1)
 raiz.columnconfigure(1, weight=1)
 raiz.rowconfigure(2, weight=1)
 
-labelNombreAtaque = Label(raiz, text = "Sistema Recomendador de Ciberseguridad", font=('Calibri', 13,'bold'))
+labelNombreAtaque = Label(raiz, text = "Sistema Recomendador de Ciberseguridad", font=('Verdana', 13,'bold'))
 labelNombreAtaque.grid(pady=20,
 						padx=10,
                         row=0,
@@ -114,14 +114,14 @@ labelNombreAtaque.grid(pady=20,
                         columnspan=10,
                     	sticky=S+N+E+W)	
 
-labelNombreAtaque = Label(raiz, text = "Nombre anomalia:", font=('Calibri', 12,'bold'))
+labelNombreAtaque = Label(raiz, text = "Nombre anomalia:", font=('Verdana', 12,'bold'))
 labelNombreAtaque.grid(row=1, column=0)	
 inputNombreAtaque = Entry(raiz, width=60)
 inputNombreAtaque.grid(row=1, column=1, sticky=E+W)
-def mensaje():		
+def realizarRecomendacion():		
 		recomendacion(inputNombreAtaque.get(), raiz)
-botonRecomendacion = Button(raiz, text="Recomendar",command = mensaje,font=('Calibri', 12,'bold'))
-botonRecomendacion.grid(pady=10,
+botonRecomendacion = Button(raiz, text="Recomendar",command = realizarRecomendacion,font=('Verdana', 12,'bold'))
+botonRecomendacion.grid(pady=20,
 						padx=10,
                         row=3,
                         column=0,
