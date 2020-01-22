@@ -88,6 +88,11 @@ def recomendacion(anomalia,raiz):
 	
 
 raiz = Tk()
+windowWidth = raiz.winfo_reqwidth()
+windowHeight = raiz.winfo_reqheight()
+positionRight = int(raiz.winfo_screenwidth()/2 - windowWidth/2)
+positionDown = int(raiz.winfo_screenheight()/2 - windowHeight/2)
+raiz.geometry("+{}+{}".format(positionRight, positionDown))
 #raiz.geometry('800x600') # anchura x altura
 raiz.configure(bg = 'beige')
 raiz.title('Sistema de recomendación')
@@ -95,7 +100,7 @@ raiz.columnconfigure(0, weight=1)
 raiz.columnconfigure(1, weight=1)
 raiz.rowconfigure(2, weight=1)
 
-labelNombreAtaque = Label(raiz, text = "Sistema de Recomendador de Ciberseguridad", font=("Arial Bold", 15))
+labelNombreAtaque = Label(raiz, text = "Sistema Recomendador de Ciberseguridad", font=("Arial Bold", 15))
 labelNombreAtaque.grid(pady=20,
 						padx=10,
                         row=0,
