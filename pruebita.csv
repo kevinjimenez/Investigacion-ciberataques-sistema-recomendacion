@@ -1,0 +1,6 @@
+name,rating,numero_de_rating
+CWE-190: Integer Overflow or Wraparound,1.0,3
+CWE-200: Information Exposure,1.0,3
+CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting'),1.0,3
+CWE-772: Missing Release of Resource after Effective Lifetime,1.0,3
+CWE-798: Use of Hard-coded Credentials,0.8660254037844387,3
