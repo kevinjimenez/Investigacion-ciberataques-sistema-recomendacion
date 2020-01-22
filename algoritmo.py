@@ -12,17 +12,28 @@ def recomendacion(anomalia,raiz):
 	path_datos_raiting = fileDir + '/datos-prueba/raiting_25.csv'
 	path_datos_ataques = fileDir + '/datos-prueba/datos_valores_25.csv'
 	raitings = pd.read_csv(path_datos_raiting, sep=',', names=['user_id','item_id','rating'])
-	"""
-	Lb1 = Listbox(raiz)
-	Lb1.grid(pady=10,
+	
+	style = ttk.Style()
+	style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=('Calibri', 11)) # Modify the font of the body
+	style.configure("mystyle.Treeview.Heading", font=('Calibri', 12,'bold')) # Modify the font of the headings
+	style.layout("mystyle.Treeview", [('mystyle.Treeview.treearea', {'sticky': 'nswe'})]) # Remove the borders		
+	treeview=ttk.Treeview(raiz,style="mystyle.Treeview")
+	treeview.tag_configure('odd', background='#E8E8E8')
+	treeview.tag_configure('even', background='#DFDFDF')
+	treeview.grid(pady=10,
 						padx=10,
                         row=6,
                         column=0,
                         columnspan=3,
                     	sticky=S+N+E+W)	
-	headers = ["ANOMALÌA", "RATING", "NUMERO RATINGS"]
-	row_format ="{:<8}  {:>8}  {:8}" 
-	"""
+		
+	treeview["columns"]=("#1","#2")
+	treeview.column('#0', width=800, anchor='w') 
+	treeview.column('#1', width=100, anchor='w') 
+	treeview.column('#2', width=20, anchor='w') 
+	treeview.heading('#0', text='Anomalia')
+	treeview.heading('#1', text='rating')
+	treeview.heading('#2', text='numero raitings')			
 
 	print(raitings.head())
 
@@ -63,27 +74,22 @@ def recomendacion(anomalia,raiz):
 			#if numero_usuarios > 0:
 				
 			recomendaciones = correlacion_recomendaciones[correlacion_recomendaciones['numero_de_rating'] > 2].sort_values(by='rating', ascending=False).head()			
-			print("LISTA DE RECOMENDACIONES PARA: ", anomalia )			
-			treeview=ttk.Treeview(raiz)
-			treeview.grid(pady=10,
-						padx=10,
-                        row=6,
-                        column=0,
-                        columnspan=3,
-                    	sticky=S+N+E+W)	
-			treeview["columns"]=("#1","#2")
-			treeview.heading('#0', text='Anomalia')
-			treeview.heading('#1', text='rating')
-			treeview.heading('#2', text='numero raitings')			
+			print("LISTA DE RECOMENDACIONES PARA: ", anomalia )				
 			for i,j in recomendaciones.iterrows():					
-					treeview.insert('','end',i,text=i,values=(str(j.values[0]), str(j.values[1])))			
+					print(type(j.values[0]))
+					treeview.insert('','end',i,text=i,values=(str(j.values[0]), str(j.values[1])),tags = ('odd'))			
+			#treeview.
 			#else:
 			#	print("Oops!  No existen usuarios .  Intenta de nuevo...")					 
 		except KeyError:
 			print("Oops!  La palabra ingresado no se encuetra registarda.  Intenta de nuevo...")
+			for i in treeview.get_children():
+    				treeview.delete(i)
 			msg = messagebox.showinfo( "Oops", "La palabra ingresado no se encuetra registarda.  Intenta de nuevo...")			
 	else:
 		print("Oops!  La palabra ingresado no se encuetra registarda.  Intenta de nuevo...")
+		for i in treeview.get_children():
+    				treeview.delete(i)
 		msg = messagebox.showinfo( "Oops", "Debes Ingresar una palabra.  Intenta de nuevo...")		
 	
 
@@ -93,14 +99,14 @@ windowHeight = raiz.winfo_reqheight()
 positionRight = int(raiz.winfo_screenwidth()/2 - windowWidth/2)
 positionDown = int(raiz.winfo_screenheight()/2 - windowHeight/2)
 raiz.geometry("+{}+{}".format(positionRight, positionDown))
-#raiz.geometry('800x600') # anchura x altura
+#raiz.geometry('1400x400') # anchura x altura
 raiz.configure(bg = 'beige')
 raiz.title('Sistema de recomendación')
 raiz.columnconfigure(0, weight=1)
 raiz.columnconfigure(1, weight=1)
 raiz.rowconfigure(2, weight=1)
 
-labelNombreAtaque = Label(raiz, text = "Sistema Recomendador de Ciberseguridad", font=("Arial Bold", 15))
+labelNombreAtaque = Label(raiz, text = "Sistema Recomendador de Ciberseguridad", font=('Calibri', 13,'bold'))
 labelNombreAtaque.grid(pady=20,
 						padx=10,
                         row=0,
@@ -108,13 +114,13 @@ labelNombreAtaque.grid(pady=20,
                         columnspan=10,
                     	sticky=S+N+E+W)	
 
-labelNombreAtaque = Label(raiz, text = "Nombre anomalia:", font=("Arial Bold", 10))
+labelNombreAtaque = Label(raiz, text = "Nombre anomalia:", font=('Calibri', 12,'bold'))
 labelNombreAtaque.grid(row=1, column=0)	
-inputNombreAtaque = Entry(raiz, width=50)
+inputNombreAtaque = Entry(raiz, width=60)
 inputNombreAtaque.grid(row=1, column=1, sticky=E+W)
 def mensaje():		
 		recomendacion(inputNombreAtaque.get(), raiz)
-botonRecomendacion = Button(raiz, text="Recomendar",command = mensaje)
+botonRecomendacion = Button(raiz, text="Recomendar",command = mensaje,font=('Calibri', 12,'bold'))
 botonRecomendacion.grid(pady=10,
 						padx=10,
                         row=3,
