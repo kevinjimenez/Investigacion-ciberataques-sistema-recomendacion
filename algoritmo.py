@@ -53,12 +53,19 @@ def recomendacion(anomalia,raiz):
 	conn.execute(sql_delete_data)
 	conn.executemany(sql_inserts_data, lista_items)
 	conn.commit()
-	conn.close()
 
 	print(items.head())
 
 
 	ataques_raitings = pd.merge(raitings, items, on='item_id')
+	lista_ataques_raitings = ataques_raitings.values.tolist()
+	#print(lista_ataques_raitings)
+	#sql_inserts_data = "INSERT INTO items_ratings (item_id, anomalia, descripcion, criticidad, recomendacion) VALUES (?, ?,?,?,?);"
+	#sql_delete_data = "DELETE FROM items"
+	#conn.execute(sql_delete_data)
+	#conn.executemany(sql_inserts_data, lista_items)
+	#conn.commit()
+	
 	print(ataques_raitings.head())
 
 	media_ataques_raitings = pd.DataFrame(ataques_raitings.groupby(['anomalia','recomendacion'])['rating'].mean())
@@ -109,7 +116,7 @@ def recomendacion(anomalia,raiz):
     				treeview.delete(i)
 		msg = messagebox.showinfo( "Oops", "Debes Ingresar una palabra.  Intenta de nuevo...")		
 
-
+	conn.close()
 
 """
 try:
