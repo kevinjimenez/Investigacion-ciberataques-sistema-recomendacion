@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+import sqlite3
 import os
 import pandas as pd
 import numpy as np
@@ -44,14 +45,14 @@ def recomendacion(anomalia,raiz):
 	ataques_raitings = pd.merge(raitings, items, on='item_id')
 	print(ataques_raitings.head())
 
-	media_ataques_raitings = pd.DataFrame(ataques_raitings.groupby(['name'])['rating'].mean())
+	media_ataques_raitings = pd.DataFrame(ataques_raitings.groupby(['anomalia','recomendacion'])['rating'].mean())
 	print(media_ataques_raitings.head())
 
 
-	media_ataques_raitings['numero_de_rating'] = ataques_raitings.groupby(['name'])['rating'].count()
+	media_ataques_raitings['numero_de_rating'] = ataques_raitings.groupby(['anomalia','recomendacion'])['rating'].count()
 	print(media_ataques_raitings.head())
 
-	matriz_usuario_ataque = ataques_raitings.pivot_table(index='user_id', columns='name', values='rating')
+	matriz_usuario_ataque = ataques_raitings.pivot_table(index='user_id', columns='anomalia', values='rating')
 	print(matriz_usuario_ataque.head())
 	print(media_ataques_raitings.sort_values('numero_de_rating', ascending=False).head())	
 	
@@ -91,8 +92,46 @@ def recomendacion(anomalia,raiz):
 		for i in treeview.get_children():
     				treeview.delete(i)
 		msg = messagebox.showinfo( "Oops", "Debes Ingresar una palabra.  Intenta de nuevo...")		
-	
 
+
+
+"""
+try:
+    #ratingDb = open("rating.db")
+	 itemsDb = open("items.db")
+	#itemsRatingsDb = open("itemsRatings.db")
+    # Do something with the file
+except IOError:
+    print("File not accessible")
+finally:
+    #ratingDb.close()
+	itemsDb.close()
+	#itemsRatingsDb.close()
+"""
+conn = sqlite3.connect('itemsRatings.db')
+c = conn.cursor()
+
+#c.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='items_ratings' ''')
+c.execute(''' SELECT name FROM sqlite_master WHERE type='table' ''')
+rows = c.fetchall() 
+if len(rows) > 0:
+	print('Existen tablas.')
+else:
+	c.execute('''CREATE TABLE items_ratings
+             (anomalia text, rating text, numero_de_rating text)''')
+	c.execute('''CREATE TABLE ratings
+             (user_id text, item_id text, rating text)''')
+	c.execute('''CREATE TABLE items
+             (item_id text, anomalia text, rating text, descripcion text, criticidad text, recomendacion text)''')
+	print('Base de datos sin tablas.')
+
+# Insert a row of data
+#c.execute("INSERT INTO stocks VALUES ('2006-01-05','BUY','RHAT',100,35.14)")
+conn.commit()
+conn.close()
+# We can also close the connection if we are done with it.
+# Just be sure any changes have been committed or they will be lost.
+conn.close()
 raiz = Tk()
 windowWidth = raiz.winfo_reqwidth()
 windowHeight = raiz.winfo_reqheight()
