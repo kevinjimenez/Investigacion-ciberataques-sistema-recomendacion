@@ -1,19 +1,27 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-import sqlite3
+import sqlite3, csv
 import os
 import pandas as pd
 import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
+conn = sqlite3.connect('itemsRatings.db')
+c = conn.cursor()
 def recomendacion(anomalia,raiz):
-	
+	conn = sqlite3.connect('itemsRatings.db')
+	c = conn.cursor()	
 	fileDir = os.path.dirname(os.path.abspath(__file__))
 	path_datos_raiting = fileDir + '/datos-prueba/raiting_25.csv'
 	path_datos_ataques = fileDir + '/datos-prueba/datos_valores_25.csv'
 	raitings = pd.read_csv(path_datos_raiting, sep=',', names=['user_id','item_id','rating'])
-	
+	lista_ratings = raitings.values.tolist()
+	sql_inserts_data = "INSERT INTO ratings (user_id,item_id, rating) VALUES (?, ?,?);"
+	sql_delete_data = "DELETE FROM ratings"
+	conn.execute(sql_delete_data)
+	conn.executemany(sql_inserts_data, lista_ratings)
+	conn.commit()
 	style = ttk.Style()
 	style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=('Verdana', 11)) # Modify the font of the body
 	style.configure("mystyle.Treeview.Heading", font=('Verdana', 12,'bold')) # Modify the font of the headings
@@ -39,6 +47,14 @@ def recomendacion(anomalia,raiz):
 	print(raitings.head())
 
 	items = pd.read_csv(path_datos_ataques)
+	lista_items = items.values.tolist()
+	sql_inserts_data = "INSERT INTO items (item_id, anomalia, descripcion, criticidad, recomendacion) VALUES (?, ?,?,?,?);"
+	sql_delete_data = "DELETE FROM items"
+	conn.execute(sql_delete_data)
+	conn.executemany(sql_inserts_data, lista_items)
+	conn.commit()
+	conn.close()
+
 	print(items.head())
 
 
@@ -108,8 +124,7 @@ finally:
 	itemsDb.close()
 	#itemsRatingsDb.close()
 """
-conn = sqlite3.connect('itemsRatings.db')
-c = conn.cursor()
+
 
 #c.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='items_ratings' ''')
 c.execute(''' SELECT name FROM sqlite_master WHERE type='table' ''')
@@ -122,7 +137,7 @@ else:
 	c.execute('''CREATE TABLE ratings
              (user_id text, item_id text, rating text)''')
 	c.execute('''CREATE TABLE items
-             (item_id text, anomalia text, rating text, descripcion text, criticidad text, recomendacion text)''')
+             (item_id text, anomalia text, descripcion text, criticidad text, recomendacion text)''')
 	print('Base de datos sin tablas.')
 
 # Insert a row of data
