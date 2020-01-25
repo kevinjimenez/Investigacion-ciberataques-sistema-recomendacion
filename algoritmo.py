@@ -1,6 +1,8 @@
+import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+import tkentrycomplete
 import sqlite3, csv
 import os
 import pandas as pd
@@ -9,7 +11,8 @@ import warnings
 warnings.filterwarnings('ignore')
 conn = sqlite3.connect('itemsRatings.db')
 c = conn.cursor()
-def recomendacion(anomalia,raiz):
+
+def recomendacion(anomalia,raiz):	
 	conn = sqlite3.connect('itemsRatings.db')
 	c = conn.cursor()	
 	fileDir = os.path.dirname(os.path.abspath(__file__))
@@ -36,13 +39,15 @@ def recomendacion(anomalia,raiz):
                         columnspan=3,
                     	sticky=S+N+E+W)	
 		
-	treeview["columns"]=("#1","#2")
+	treeview["columns"]=("#1","#2","#3")
 	treeview.column('#0', width=800, anchor='w') 
 	treeview.column('#1', width=20, anchor='w') 
-	treeview.column('#2', width=100, anchor='w') 
+	treeview.column('#2', width=20, anchor='w') 
+	treeview.column('#3', width=100, anchor='w') 
 	treeview.heading('#0', text='Anomalia')
-	treeview.heading('#1', text='rating')
-	treeview.heading('#2', text='numero raitings')			
+	treeview.heading('#1', text='recomendacion')
+	treeview.heading('#2', text='rating')			
+	treeview.heading('#3', text='numero raitings')
 
 	print(raitings.head())
 
@@ -55,7 +60,7 @@ def recomendacion(anomalia,raiz):
 	conn.commit()
 
 	print(items.head())
-
+	
 
 	ataques_raitings = pd.merge(raitings, items, on='item_id')
 	lista_ataques_raitings = ataques_raitings.values.tolist()
@@ -99,9 +104,14 @@ def recomendacion(anomalia,raiz):
 				
 			recomendaciones = correlacion_recomendaciones[correlacion_recomendaciones['numero_de_rating'] > 2].sort_values(by='rating', ascending=False).head()			
 			print("LISTA DE RECOMENDACIONES PARA: ", anomalia )				
-			for i,j in recomendaciones.iterrows():					
-					print(type(j.values[0]))
-					treeview.insert('','end',i,text=i,values=(str(j.values[0]), str(j.values[1])),tags = ('odd'))			
+			for i,j in recomendaciones.iterrows():										
+					treeview.insert('','end',i[0],text=i[0],values=(i[1],str(j.values[0]), str(j.values[1])),tags = ('odd'))			
+
+			def selectItem(a):
+				curlItem = treeview.focus()
+				print(treeview.item(curlItem))
+
+			treeview.bind('<Double-1>',selectItem)
 			#treeview.
 			#else:
 			#	print("Oops!  No existen usuarios .  Intenta de nuevo...")					 
@@ -149,12 +159,22 @@ else:
 
 # Insert a row of data
 #c.execute("INSERT INTO stocks VALUES ('2006-01-05','BUY','RHAT',100,35.14)")
+
+raiz = Tk()
 conn.commit()
-conn.close()
+box_value = tk.StringVar()
+c.execute(''' SELECT anomalia FROM items ''')
+rows = c.fetchall()
+lista_animaliass = []
+for row in rows:		
+	ittt =  ''.join(row)
+	lista_animaliass.append(ittt)	
+
+#button = tk.Button(text='but', command=fun)
+#button.place(x=140,y=70)
+
 # We can also close the connection if we are done with it.
 # Just be sure any changes have been committed or they will be lost.
-conn.close()
-raiz = Tk()
 windowWidth = raiz.winfo_reqwidth()
 windowHeight = raiz.winfo_reqheight()
 positionRight = int(raiz.winfo_screenwidth()/2 - windowWidth/2)
@@ -177,10 +197,18 @@ labelNombreAtaque.grid(pady=20,
 
 labelNombreAtaque = Label(raiz, text = "Nombre anomalia:", font=('Verdana', 12,'bold'))
 labelNombreAtaque.grid(row=1, column=0)	
-inputNombreAtaque = Entry(raiz, width=60)
-inputNombreAtaque.grid(row=1, column=1, sticky=E+W)
+
+combo = tkentrycomplete.AutocompleteCombobox(textvariable=box_value,width=50)
+test_list = lista_animaliass
+combo.set_completion_list(test_list)
+combo.grid(row=1, column=1, sticky=E+W)
+
+#inputNombreAtaque = Entry(raiz, width=60)
+#inputNombreAtaque.grid(row=1, column=1, sticky=E+W)
+conn.close()
+print(type(box_value.get()))
 def realizarRecomendacion():		
-		recomendacion(inputNombreAtaque.get(), raiz)
+		recomendacion(box_value.get(), raiz)
 botonRecomendacion = Button(raiz, text="Recomendar",command = realizarRecomendacion,font=('Verdana', 12,'bold'))
 botonRecomendacion.grid(pady=20,
 						padx=10,
