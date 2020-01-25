@@ -109,7 +109,14 @@ def recomendacion(anomalia,raiz):
 
 			def selectItem(a):
 				curlItem = treeview.focus()
-				print(treeview.item(curlItem))
+				raiz2 = Tk()				
+				raiz2.configure(bg = 'beige')
+				raiz2.title('Recomendacion ')
+				raiz2.columnconfigure(0, weight=1)
+				raiz2.columnconfigure(1, weight=1)
+				raiz2.rowconfigure(2, weight=1)				
+				#msg = messagebox.showinfo( "Recomendacion", 
+				#"Recomendacion: "+treeview.item(curlItem)['values'][0]+"\n"+"rating: "+treeview.item(curlItem)['values'][1])	
 
 			treeview.bind('<Double-1>',selectItem)
 			#treeview.
