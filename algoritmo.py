@@ -109,12 +109,47 @@ def recomendacion(anomalia,raiz):
 
 			def selectItem(a):
 				curlItem = treeview.focus()
+				receondeacion_anomaluia= treeview.item(curlItem)['values'][0]
+				rating_anomalia =  treeview.item(curlItem)['values'][1]
+				print(curlItem)
+				print()
+				print()			
 				raiz2 = Tk()				
 				raiz2.configure(bg = 'beige')
-				raiz2.title('Recomendacion ')
+				raiz2.title(curlItem)
 				raiz2.columnconfigure(0, weight=1)
 				raiz2.columnconfigure(1, weight=1)
-				raiz2.rowconfigure(2, weight=1)				
+				raiz2.rowconfigure(2, weight=1)	
+				labelNombreAtaque = Label(raiz2, text = "Recoemndacion: "+receondeacion_anomaluia, font=('Verdana', 13,'bold'))
+				labelNombreAtaque.grid(pady=20,
+						padx=10,
+                        row=0,
+                        column=0,
+                        columnspan=10,
+                    	sticky=S+N+E+W)				
+				labelNombreAtaque = Label(raiz2, text = "Rating: "+rating_anomalia, font=('Verdana', 13,'bold'))
+				labelNombreAtaque.grid(pady=20,
+						padx=10,
+                        row=3,
+                        column=0,
+                        columnspan=10,
+                    	sticky=S+N+E+W)				
+
+				btn1 = Button(raiz2, text="Aceptar",font=('Verdana', 12,'bold'))
+				btn1.grid(pady=20,
+						padx=5,
+                        row=6,
+                        column=0,
+                        columnspan=0,
+                    	sticky=S+N+E+W)							
+				btn2 = Button(raiz2, text="Aceptar",font=('Verdana', 12,'bold'))
+				btn2.grid(pady=20,
+						padx=5,
+                        row=6,
+                        column=1,
+                        columnspan=3,
+                    	sticky=S+N+E+W)							
+						
 				#msg = messagebox.showinfo( "Recomendacion", 
 				#"Recomendacion: "+treeview.item(curlItem)['values'][0]+"\n"+"rating: "+treeview.item(curlItem)['values'][1])	
 

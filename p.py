@@ -1,5 +1,4 @@
 import tkinter as tk
-import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
@@ -11,8 +10,11 @@ import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
 class Demo1:
-    def __init__(self, master):
+    def __init__(self, master, anomalia):
+        print(anomalia)
+
         self.master = master        
+        self.anomalia = anomalia        
         self.botonRecomendacion = Button(self.master, text="Recomendar",command = self.new_window,font=('Verdana', 12,'bold'))
         self.botonRecomendacion.grid(pady=20,
 						padx=10,
@@ -21,7 +23,10 @@ class Demo1:
                         columnspan=3,
                     	sticky=S+N+E+W)							              
 
+
+
     def new_window(self):
+            print(self.anomalia)
             self.newWindow = tk.Toplevel(self.master)
             self.app = Demo2(self.newWindow)
 """
@@ -50,13 +55,14 @@ def main():
     conexionBDD = sqlite3.connect('itemsRatings.db')
     conexion = conexionBDD.cursor()
     root = tk.Tk()
+
     box_value = tk.StringVar()
     conexion.execute(''' SELECT anomalia FROM items ''')
-    rows = conexion.fetchall()
-    lista_animaliass = []
-    for row in rows:		
-	    ittt =  ''.join(row)
-	    lista_animaliass.append(ittt)	
+    items = conexion.fetchall()
+    lista_anomalias = []
+    for item in items:		
+	    anomalia =  ''.join(item)
+	    lista_anomalias.append(anomalia)	
     root.configure(bg = 'beige')
     root.title('Sistema de recomendación')
     root.columnconfigure(0, weight=1)
@@ -73,11 +79,12 @@ def main():
     labelNombreAtaque = Label(root, text = "Nombre anomalia:", font=('Verdana', 12,'bold'))
     labelNombreAtaque.grid(row=1, column=0)	
     combo = tkentrycomplete.AutocompleteCombobox(textvariable=box_value,width=50)
-    test_list = lista_animaliass
+    test_list = lista_anomalias
     combo.set_completion_list(test_list)
-    combo.grid(row=1, column=1, sticky=E+W)    
-    conexion.close()    
-    app = Demo1(root)
+    combo.grid(row=1, column=1, sticky=E+W)
+    print(box_value.get(),1)
+    conexion.close()        
+    app = Demo1(root,'adas')
     root.mainloop()
 
 if __name__ == '__main__':
