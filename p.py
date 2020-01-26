@@ -1,3 +1,19 @@
+from tkinter import *
+ 
+from tkinter import scrolledtext
+ 
+window = Tk()
+ 
+window.title("Welcome to LikeGeeks app")
+ 
+window.geometry('350x200')
+ 
+txt = scrolledtext.ScrolledText(window,width=40,height=10)
+
+txt.grid(column=0,row=0)
+ 
+window.mainloop()
+"""
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
@@ -29,7 +45,7 @@ class Demo1:
             print(self.anomalia)
             self.newWindow = tk.Toplevel(self.master)
             self.app = Demo2(self.newWindow)
-"""
+
         self.frame = tk.Frame(self.master)
         self.button1 = tk.Button(self.frame, text = 'New Window', width = 25, command = self.new_window)
         self.button1.pack()
@@ -38,11 +54,11 @@ class Demo1:
     def new_window(self):
         self.newWindow = tk.Toplevel(self.master)
         self.app = Demo2(self.newWindow)
-"""
+
 class Demo2:
     def __init__(self, master):
         self.master = master
-        """
+        
         self.frame = tk.Frame(self.master)
         self.quitButton = tk.Button(self.frame, text = 'Quit', width = 25, command = self.close_windows)
         self.quitButton.pack()
@@ -50,7 +66,7 @@ class Demo2:
 
     def close_windows(self):
         self.master.destroy()
-"""
+
 def main(): 
     conexionBDD = sqlite3.connect('itemsRatings.db')
     conexion = conexionBDD.cursor()
@@ -89,3 +105,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+"""
