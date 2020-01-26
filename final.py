@@ -37,11 +37,11 @@ class sistema_recomendacion_ciberseguridad:
         self.treeview = ttk.Treeview(self.master,style="mystyle.Treeview")                
         self.labelNombreAtaque = Label(self.master, text = "Sistema Recomendador de Ciberseguridad", font=('Verdana', 13,'bold'))
         self.labelNombreAtaque.grid(pady=20,
-						padx=10,
-                        row=0,
-                        column=0,
-                        columnspan=10,
-                    	sticky=S+N+E+W)	
+                                padx=10,
+                                row=0,
+                                column=0,
+                                columnspan=10,
+                                sticky=S+N+E+W)	
 
         self.labelNombreAtaque = Label(self.master, text = "Nombre anomalia:", font=('Verdana', 12,'bold'))
         self.labelNombreAtaque.grid(row=1, column=0)	
@@ -52,11 +52,11 @@ class sistema_recomendacion_ciberseguridad:
         conexion.close()             
         self.botonRecomendacion = Button(self.master, text="Recomendar",command = self.recomendacion,font=('Verdana', 12,'bold'))
         self.botonRecomendacion.grid(pady=20,
-						padx=10,
-                        row=3,
-                        column=0,
-                        columnspan=3,
-                    	sticky=S+N+E+W)		
+                                padx=10,
+                                row=3,
+                                column=0,
+                                columnspan=3,
+                                sticky=S+N+E+W)		
 
     
     #def configuracion_tabla_recomendaciones(self): 
@@ -128,9 +128,9 @@ class sistema_recomendacion_ciberseguridad:
 
 
     def recomendacion(self):                
-        self.style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=('Verdana', 11)) # Modify the font of the body
-        self.style.configure("mystyle.Treeview.Heading", font=('Verdana', 12,'bold')) # Modify the font of the headings
-        self.style.layout("mystyle.Treeview", [('mystyle.Treeview.treearea', {'sticky': 'nswe'})]) # Remove the borders		        
+        self.style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=('Verdana', 11))
+        self.style.configure("mystyle.Treeview.Heading", font=('Verdana', 12,'bold'))
+        self.style.layout("mystyle.Treeview", [('mystyle.Treeview.treearea', {'sticky': 'nswe'})])
         self.treeview.tag_configure('odd', background='#E8E8E8')        
         self.treeview.grid(pady=10,
                             padx=10,
@@ -227,21 +227,6 @@ def agregar_informacion_items():
         conexionBDD.executemany(sql_insert, lista_items)
         conexionBDD.commit()
         #conexionBDD.close()
-
-"""
-def agregar_informacion_items_ratings():    
-        global conexionBDD
-        global conexion
-        global lista_ratings
-        conexion.execute('''CREATE TABLE items_ratings
-                (anomalia text, rating text, numero_de_rating text)''')
-        sql_insert = "INSERT INTO ratings (user_id,item_id, rating) VALUES (?, ?,?);"
-        sql_delete = "DELETE FROM ratings"
-        #conn.execute(sql_delete_data)
-        conexion.executemany(sql_inserts_data, lista_ratings)
-        conexion.commit()
-        conexion.close()
-"""
 
 def diseno_interfaz():
         root = tk.Tk()
