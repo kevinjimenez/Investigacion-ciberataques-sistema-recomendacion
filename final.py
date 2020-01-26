@@ -163,8 +163,8 @@ class sistema_recomendacion_ciberseguridad:
                 recoemndacion_cuadro.columnconfigure(0, weight=1)
                 recoemndacion_cuadro.columnconfigure(1, weight=1)
                 recoemndacion_cuadro.rowconfigure(2, weight=1)                
-                recomendacion = Label(recoemndacion_cuadro, text = "Recomendacion: ", font=('Verdana', 12,'bold'))
-                recomendacion.grid(pady=10,
+                label_recomendacion = Label(recoemndacion_cuadro, text = "Recomendacion: ", font=('Verdana', 12,'bold'))
+                label_recomendacion.grid(pady=10,
                                 padx=10,
                                 row=1, 
                                 column=0)	
@@ -172,7 +172,7 @@ class sistema_recomendacion_ciberseguridad:
                 txt = scrolledtext.ScrolledText(recoemndacion_cuadro,width=60,height=15,font=('Verdana', 11))
                 txt.insert(INSERT,valores_item[0])
                 txt.config(state=DISABLED)
-                txt.grid(pady=10,
+                txt.grid(pady=20,
                         padx=10,
                         row=2, 
                         column=0,
@@ -180,25 +180,27 @@ class sistema_recomendacion_ciberseguridad:
                         sticky=S+N+E+W)
 
                 rating = Label(recoemndacion_cuadro, text = "Rating: "+valores_item[1], font=('Verdana', 12,'bold'))
-                rating.grid(pady=10,
+                rating.grid(pady=20,
                             padx=10,
-                            row=3, 
-                            column=0)	
+                            row=0, 
+                            column=0,
+                            sticky=S+N+E+W)	
                 boton_aceptar = Button(recoemndacion_cuadro, text="Aceptar", width = 25 , command = recoemndacion_cuadro.destroy,font=('Verdana', 12,'bold'))
                 boton_aceptar.grid(pady=20,
                                 padx=20,
-                                row=5,
-                                column=0,
+                                row=2,
+                                column=5,
                                 columnspan=3,
-                                sticky=E+W)		                            
+                                sticky=E+W)
+                """                                		                            
                 boton_calificar = Button(recoemndacion_cuadro, text="Calificar", width = 25 , command = self.recomendacion,font=('Verdana', 12,'bold'))
                 boton_calificar.grid(pady=20,
                                 padx=20,
-                                row=5,
-                                column=3,
+                                row=2,
+                                column=5,
                                 columnspan=3,
-                                sticky=E+W)
-                
+                                sticky=E+W+S)
+                """
 
 def main():    
     inicio()
