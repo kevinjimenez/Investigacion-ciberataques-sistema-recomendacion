@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
+from tkinter import scrolledtext
 from tkinter import messagebox
 import tkentrycomplete
 import sqlite3, csv
@@ -12,11 +13,19 @@ warnings.filterwarnings('ignore')
 conexionBDD = sqlite3.connect('itemsRatings.db')
 conexion = conexionBDD.cursor()
 fileDir = os.path.dirname(os.path.abspath(__file__))
-path_datos_raiting = fileDir + '/datos-prueba/raiting_25.csv'
-path_datos_ataques = fileDir + '/datos-prueba/datos_valores_25.csv'
+### DATOS PRUEBA
 
-raitings = pd.read_csv(path_datos_raiting, sep=',', names=['user_id','item_id','rating'])
-lista_ratings = raitings.values.tolist()
+path_datos_rating_prueba = fileDir + '/datos-prueba/raiting_25.csv'
+path_datos_ataques_prueba = fileDir + '/datos-prueba/datos_valores_25.csv'
+
+###
+
+
+path_datos_rating = fileDir + '/datos-sistema-recomendacion/rating_anomalias.csv'
+path_datos_ataques = fileDir + '/datos-sistema-recomendacion/anomalias.csv'
+
+ratings = pd.read_csv(path_datos_rating, sep=',', names=['user_id','item_id','rating'])
+lista_ratings = ratings.values.tolist()
 
 items = pd.read_csv(path_datos_ataques)
 lista_items = items.values.tolist()
@@ -27,7 +36,7 @@ class sistema_recomendacion_ciberseguridad:
         global conexion        
         self.style = ttk.Style()        
         self.box_value = tk.StringVar()
-        conexion.execute(''' SELECT anomalia FROM items ''')
+        conexion.execute('SELECT anomalia FROM items')
         self.items = conexion.fetchall()
         self.lista_anomalias = []
         for item in self.items:		
@@ -37,11 +46,11 @@ class sistema_recomendacion_ciberseguridad:
         self.treeview = ttk.Treeview(self.master,style="mystyle.Treeview")                
         self.labelNombreAtaque = Label(self.master, text = "Sistema Recomendador de Ciberseguridad", font=('Verdana', 13,'bold'))
         self.labelNombreAtaque.grid(pady=20,
-						padx=10,
-                        row=0,
-                        column=0,
-                        columnspan=10,
-                    	sticky=S+N+E+W)	
+                                padx=10,
+                                row=0,
+                                column=0,
+                                columnspan=10,
+                                sticky=S+N+E+W)	
 
         self.labelNombreAtaque = Label(self.master, text = "Nombre anomalia:", font=('Verdana', 12,'bold'))
         self.labelNombreAtaque.grid(row=1, column=0)	
@@ -52,35 +61,31 @@ class sistema_recomendacion_ciberseguridad:
         conexion.close()             
         self.botonRecomendacion = Button(self.master, text="Recomendar",command = self.recomendacion,font=('Verdana', 12,'bold'))
         self.botonRecomendacion.grid(pady=20,
-						padx=10,
-                        row=3,
-                        column=0,
-                        columnspan=3,
-                    	sticky=S+N+E+W)		
+                                padx=10,
+                                row=3,
+                                column=0,
+                                columnspan=3,
+                                sticky=S+N+E+W)		
 
     
-    #def configuracion_tabla_recomendaciones(self): 
-
-        
-        
     def generar_recomendacion(self, anomalia):
-        global raitings
+        global ratings
         global items
         self.vaciar_lista()
-        ataques_raitings = pd.merge(raitings, items, on='item_id')
-        lista_ataques_raitings = ataques_raitings.values.tolist()
-        print(ataques_raitings.head())
+        ataques_ratings = pd.merge(ratings, items, on='item_id')
+        lista_ataques_ratings = ataques_ratings.values.tolist()
+        print(ataques_ratings.head())
 
-        media_ataques_raitings = pd.DataFrame(ataques_raitings.groupby(['anomalia','recomendacion'])['rating'].mean())
-        print(media_ataques_raitings.head())
+        media_ataques_ratings = pd.DataFrame(ataques_ratings.groupby(['anomalia','recomendacion'])['rating'].mean())
+        print(media_ataques_ratings.head())
 
 
-        media_ataques_raitings['numero_de_rating'] = ataques_raitings.groupby(['anomalia','recomendacion'])['rating'].count()
-        print(media_ataques_raitings.head())
+        media_ataques_ratings['numero_de_rating'] = ataques_ratings.groupby(['anomalia','recomendacion'])['rating'].count()
+        print(media_ataques_ratings.head())
 
-        matriz_usuario_ataque = ataques_raitings.pivot_table(index='user_id', columns='anomalia', values='rating')
+        matriz_usuario_ataque = ataques_ratings.pivot_table(index='user_id', columns='anomalia', values='rating')
         print(matriz_usuario_ataque.head())
-        print(media_ataques_raitings.sort_values('numero_de_rating', ascending=False).head())	
+        print(media_ataques_ratings.sort_values('numero_de_rating', ascending=False).head())	
         if anomalia != "" :
             try:
                 #numero_usuarios = 0
@@ -94,7 +99,7 @@ class sistema_recomendacion_ciberseguridad:
                 correlacion_recomendaciones.dropna(inplace=True)
                 correlacion_recomendaciones.head()
 
-                correlacion_recomendaciones = correlacion_recomendaciones.join(media_ataques_raitings['numero_de_rating'],how='left', lsuffix='_left', rsuffix='_right')
+                correlacion_recomendaciones = correlacion_recomendaciones.join(media_ataques_ratings['numero_de_rating'],how='left', lsuffix='_left', rsuffix='_right')
                 correlacion_recomendaciones.head()
                 #print(numero_usuarios)
                 #if numero_usuarios > 0:
@@ -121,16 +126,15 @@ class sistema_recomendacion_ciberseguridad:
             self.vaciar_lista()
             msg = messagebox.showinfo( "Oops", "Debes Ingresar una palabra.  Intenta de nuevo...")		
 
-
     def vaciar_lista(self):
             for i in self.treeview.get_children():
                 self.treeview.delete(i) 
 
 
     def recomendacion(self):                
-        self.style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=('Verdana', 11)) # Modify the font of the body
-        self.style.configure("mystyle.Treeview.Heading", font=('Verdana', 12,'bold')) # Modify the font of the headings
-        self.style.layout("mystyle.Treeview", [('mystyle.Treeview.treearea', {'sticky': 'nswe'})]) # Remove the borders		        
+        self.style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=('Verdana', 11))
+        self.style.configure("mystyle.Treeview.Heading", font=('Verdana', 12,'bold'))
+        self.style.layout("mystyle.Treeview", [('mystyle.Treeview.treearea', {'sticky': 'nswe'})])
         self.treeview.tag_configure('odd', background='#E8E8E8')        
         self.treeview.grid(pady=10,
                             padx=10,
@@ -148,7 +152,7 @@ class sistema_recomendacion_ciberseguridad:
         self.treeview.heading('#0', text='Anomalia')
         self.treeview.heading('#1', text='recomendacion')
         self.treeview.heading('#2', text='rating')			
-        self.treeview.heading('#3', text='numero raitings')
+        self.treeview.heading('#3', text='numero ratings')
         anomalia = self.box_value.get()           
         self.generar_recomendacion(anomalia)
 
@@ -158,16 +162,27 @@ class sistema_recomendacion_ciberseguridad:
                 recoemndacion_cuadro.title(item)      
                 recoemndacion_cuadro.columnconfigure(0, weight=1)
                 recoemndacion_cuadro.columnconfigure(1, weight=1)
-                recoemndacion_cuadro.rowconfigure(2, weight=1)
-                recomendacion = Label(recoemndacion_cuadro, text = "Recomendacion: "+valores_item[0], font=('Verdana', 12,'bold'))
+                recoemndacion_cuadro.rowconfigure(2, weight=1)                
+                recomendacion = Label(recoemndacion_cuadro, text = "Recomendacion: ", font=('Verdana', 12,'bold'))
                 recomendacion.grid(pady=10,
                                 padx=10,
-                                row=3, 
+                                row=1, 
                                 column=0)	
+
+                txt = scrolledtext.ScrolledText(recoemndacion_cuadro,width=60,height=15,font=('Verdana', 11))
+                txt.insert(INSERT,valores_item[0])
+                txt.config(state=DISABLED)
+                txt.grid(pady=10,
+                        padx=10,
+                        row=2, 
+                        column=0,
+                        columnspan=3,
+                        sticky=S+N+E+W)
+
                 rating = Label(recoemndacion_cuadro, text = "Rating: "+valores_item[1], font=('Verdana', 12,'bold'))
                 rating.grid(pady=10,
                             padx=10,
-                            row=1, 
+                            row=3, 
                             column=0)	
                 boton_aceptar = Button(recoemndacion_cuadro, text="Aceptar", width = 25 , command = recoemndacion_cuadro.destroy,font=('Verdana', 12,'bold'))
                 boton_aceptar.grid(pady=20,
@@ -206,8 +221,7 @@ def agregar_informacion_ratings():
         global conexionBDD
         global conexion
         global lista_ratings        
-        conexion.execute('''CREATE TABLE ratings
-                (user_id text, item_id text, rating text)''')
+        conexion.execute('CREATE TABLE ratings (user_id text, item_id text, rating text)')
         sql_insert = "INSERT INTO ratings (user_id,item_id, rating) VALUES (?, ?,?);"
         sql_delete = "DELETE FROM ratings"
         #conn.execute(sql_delete_data)
@@ -219,29 +233,13 @@ def agregar_informacion_items():
         global conexionBDD
         global conexion
         global lista_items
-        conexion.execute('''CREATE TABLE items
-                (item_id text, anomalia text, descripcion text, criticidad text, recomendacion text)''')        
+        conexion.execute('CREATE TABLE items (item_id text, anomalia text, descripcion text, criticidad text, recomendacion text)')
         sql_insert = "INSERT INTO items (item_id, anomalia, descripcion, criticidad, recomendacion) VALUES (?, ?,?,?,?);"
         #sql_delete = "DELETE FROM ratings"
         #conn.execute(sql_delete_data)
         conexionBDD.executemany(sql_insert, lista_items)
         conexionBDD.commit()
         #conexionBDD.close()
-
-"""
-def agregar_informacion_items_ratings():    
-        global conexionBDD
-        global conexion
-        global lista_ratings
-        conexion.execute('''CREATE TABLE items_ratings
-                (anomalia text, rating text, numero_de_rating text)''')
-        sql_insert = "INSERT INTO ratings (user_id,item_id, rating) VALUES (?, ?,?);"
-        sql_delete = "DELETE FROM ratings"
-        #conn.execute(sql_delete_data)
-        conexion.executemany(sql_inserts_data, lista_ratings)
-        conexion.commit()
-        conexion.close()
-"""
 
 def diseno_interfaz():
         root = tk.Tk()
