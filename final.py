@@ -72,15 +72,16 @@ class sistema_recomendacion_ciberseguridad:
         global ratings
         global items
         self.vaciar_lista()
+        descripcion = ""
         ataques_ratings = pd.merge(ratings, items, on='item_id')
         lista_ataques_ratings = ataques_ratings.values.tolist()
         print(ataques_ratings.head())
 
-        media_ataques_ratings = pd.DataFrame(ataques_ratings.groupby(['anomalia','recomendacion'])['rating'].mean())
+        media_ataques_ratings = pd.DataFrame(ataques_ratings.groupby(['anomalia','recomendacion','descripcion'])['rating'].mean())
         print(media_ataques_ratings.head())
 
 
-        media_ataques_ratings['numero_de_rating'] = ataques_ratings.groupby(['anomalia','recomendacion'])['rating'].count()
+        media_ataques_ratings['numero_de_rating'] = ataques_ratings.groupby(['anomalia','recomendacion','descripcion'])['rating'].count()
         print(media_ataques_ratings.head())
 
         matriz_usuario_ataque = ataques_ratings.pivot_table(index='user_id', columns='anomalia', values='rating')
@@ -106,11 +107,13 @@ class sistema_recomendacion_ciberseguridad:
                     
                 recomendaciones = correlacion_recomendaciones[correlacion_recomendaciones['numero_de_rating'] > 2].sort_values(by='rating', ascending=False).head()			
                 print("LISTA DE RECOMENDACIONES PARA: ", anomalia )				
-                for i,j in recomendaciones.iterrows():										
-                        self.treeview.insert('','end',i[0],text=i[0],values=(i[1],str(j.values[0]), str(j.values[1])),tags = ('odd'))			
+                for i,j in recomendaciones.iterrows():		
+                        #print(i[2])								
+                        self.treeview.insert('','end',i[0],text=i[0],values=(i[1],str(j.values[0]), str(j.values[1]),i[2]),tags = ('odd'))			
 		
                 def anomalia_seleccionada(anomalia):
                         item = self.treeview.focus()
+                        print(self.treeview.item(item))
                         valores_item = self.treeview.item(item)['values']                                                
                         self.cuadro_recomendacion(item,valores_item)
 
@@ -162,11 +165,26 @@ class sistema_recomendacion_ciberseguridad:
                 recoemndacion_cuadro.title(item)      
                 recoemndacion_cuadro.columnconfigure(0, weight=1)
                 recoemndacion_cuadro.columnconfigure(1, weight=1)
-                recoemndacion_cuadro.rowconfigure(2, weight=1)                
+                recoemndacion_cuadro.rowconfigure(2, weight=1)     
+                label_descripcion = Label(recoemndacion_cuadro, text = "Descripcion: ", font=('Verdana', 12,'bold'))
+                label_descripcion.grid(pady=10,
+                                padx=10,
+                                row=1, 
+                                column=0)	
+
+                txt_descripcion = scrolledtext.ScrolledText(recoemndacion_cuadro,width=60,height=15,font=('Verdana', 11))
+                txt_descripcion.insert(INSERT,valores_item[3])
+                txt_descripcion.config(state=DISABLED)
+                txt_descripcion.grid(pady=20,
+                        padx=10,
+                        row=2, 
+                        column=0,
+                        columnspan=3,
+                        sticky=S+N+E+W)           
                 label_recomendacion = Label(recoemndacion_cuadro, text = "Recomendacion: ", font=('Verdana', 12,'bold'))
                 label_recomendacion.grid(pady=10,
                                 padx=10,
-                                row=1, 
+                                row=4, 
                                 column=0)	
 
                 txt = scrolledtext.ScrolledText(recoemndacion_cuadro,width=60,height=15,font=('Verdana', 11))
@@ -174,7 +192,7 @@ class sistema_recomendacion_ciberseguridad:
                 txt.config(state=DISABLED)
                 txt.grid(pady=20,
                         padx=10,
-                        row=2, 
+                        row=5, 
                         column=0,
                         columnspan=3,
                         sticky=S+N+E+W)
@@ -255,5 +273,5 @@ def diseno_interfaz():
 
 
 if __name__ == '__main__':
-    main()   
+    main()
 
