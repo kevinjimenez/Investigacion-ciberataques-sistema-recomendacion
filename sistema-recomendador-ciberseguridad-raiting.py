@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import scrolledtext
 from tkinter import messagebox
-from googletrans import Translator
+#from googletrans import Translator
 import tkentrycomplete
 import sqlite3, csv
 import os
@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
-translator = Translator()
+#translator = Translator()
 conexionBDD = sqlite3.connect('itemsRatings.db')
 conexion = conexionBDD.cursor()
 fileDir = os.path.dirname(os.path.abspath(__file__))
@@ -163,11 +163,12 @@ class sistema_recomendacion_ciberseguridad:
         self.generar_recomendacion(anomalia)
 
     def cuadro_recomendacion(self,item,valores_item):   
-                global translator             
+                """
+				global translator             
 				# traduccion
                 traduccion_descripcion = translator.translate(valores_item[3],dest='es')
                 traduccion_recomendacion = translator.translate(valores_item[2],dest='es')
-
+				"""
 				# ingles				
 
 
