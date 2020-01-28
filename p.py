@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+
+from googletrans import Translator
+
+translator = Translator()
+translated = translator.translate('XSS flaws occur whenever an application includes untrusted data in a new web page without proper validation or escaping, or updates an existing web page with user-supplied data using a browser API that can create HTML or JavaScript. XSS allows attackers to execute scripts in the victim’s browser which can hijack user sessions, deface web sites, or redirect the user to malicious sites.',dest='es')
+
+print(translated.text)
+
+"""
 from tkinter import *
  
 from tkinter import scrolledtext
@@ -13,6 +23,7 @@ txt = scrolledtext.ScrolledText(window,width=40,height=10)
 txt.grid(column=0,row=0)
  
 window.mainloop()
+"""
 """
 import tkinter as tk
 from tkinter import *
