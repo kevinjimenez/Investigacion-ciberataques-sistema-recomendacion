@@ -126,13 +126,13 @@ class sistema_recomendacion_ciberseguridad:
                 #else:
                 #	print("Oops!  No existen usuarios .  Intenta de nuevo...")					                 
             except KeyError:
-                print("Oops!  La palabra ingresado no se encuetra registarda.  Intenta de nuevo...")
+                print("Oops!  La anomalía ingresada no se encuetra registrada.  Intenta de nuevo...")
                 self.vaciar_lista()
-                msg = messagebox.showinfo( "Oops", "La palabra ingresado no se encuetra registarda.  Intenta de nuevo...")			
+                msg = messagebox.showinfo( "Oops", "La ananomalía ingresada no se encuetra registrada.  Intenta de nuevo...")			
         else:
-            print("Oops!  La palabra ingresado no se encuetra registarda.  Intenta de nuevo...")
+            print("Oops!  La anomalía ingresada no se encuetra registrada.  Intenta de nuevo...")
             self.vaciar_lista()
-            msg = messagebox.showinfo( "Oops", "Debes Ingresar una palabra.  Intenta de nuevo...")		
+            msg = messagebox.showinfo( "Oops", "Debes Ingresar una anomalía.  Intenta de nuevo...")		
 
     def vaciar_lista(self):
             for i in self.treeview.get_children():
