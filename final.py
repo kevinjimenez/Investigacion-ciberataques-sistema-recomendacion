@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import scrolledtext
 from tkinter import messagebox
-from googletrans import Translator
+#from googletrans import Translator
 import tkentrycomplete
 import sqlite3, csv
 import os
@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
-translator = Translator()
+#translator = Translator()
 conexionBDD = sqlite3.connect('itemsRatings.db')
 conexion = conexionBDD.cursor()
 fileDir = os.path.dirname(os.path.abspath(__file__))
@@ -126,11 +126,11 @@ class sistema_recomendacion_ciberseguridad:
                 #else:
                 #	print("Oops!  No existen usuarios .  Intenta de nuevo...")					                 
             except KeyError:
-                print("Oops!  La anomalía ingresada no se encuetra registrada.  Intenta de nuevo...")
+                print("Oops!  La anomalía ingresada no se encuentra registrada.  Intenta de nuevo...")
                 self.vaciar_lista()
-                msg = messagebox.showinfo( "Oops", "La ananomalía ingresada no se encuetra registrada.  Intenta de nuevo...")			
+                msg = messagebox.showinfo( "Oops", "La ananomalía ingresada no se encuentra registrada.  Intenta de nuevo...")			
         else:
-            print("Oops!  La anomalía ingresada no se encuetra registrada.  Intenta de nuevo...")
+            print("Oops!  La anomalía ingresada no se encuentra registrada.  Intenta de nuevo...")
             self.vaciar_lista()
             msg = messagebox.showinfo( "Oops", "Debes Ingresar una anomalía.  Intenta de nuevo...")		
 
@@ -156,7 +156,7 @@ class sistema_recomendacion_ciberseguridad:
         self.treeview.column('#1', width=80, anchor='w') 
         self.treeview.column('#2', width=150, anchor='w') 
         
-        self.treeview.heading('#0', text='Anomalía')        
+        self.treeview.heading('#0', text='Anomalías Similares')        
         self.treeview.heading('#1', text='Rating')			
         self.treeview.heading('#2', text='Número ratings')
         anomalia = self.box_value.get()           
@@ -164,8 +164,8 @@ class sistema_recomendacion_ciberseguridad:
 
     def cuadro_recomendacion(self,item,valores_item):   
                 global translator             
-                traduccion_descripcion = translator.translate(valores_item[3],dest='es')
-                traduccion_recomendacion = translator.translate(valores_item[2],dest='es')
+                #traduccion_descripcion = translator.translate(valores_item[3],dest='es')
+                #traduccion_recomendacion = translator.translate(valores_item[2],dest='es')
                 recoemndacion_cuadro = tk.Tk()                
                 recoemndacion_cuadro.configure(bg = 'beige')  
                 recoemndacion_cuadro.title(item)      
@@ -185,7 +185,7 @@ class sistema_recomendacion_ciberseguridad:
                                 column=0)	
 
                 txt_descripcion = scrolledtext.ScrolledText(recoemndacion_cuadro,width=30,height=7,font=('Helvetica', 16,'bold','italic'))
-                txt_descripcion.insert(INSERT,traduccion_descripcion.text)
+                txt_descripcion.insert(INSERT,valores_item[3])
                 #txt_descripcion.config(state=DISABLED)
                 txt_descripcion.grid(pady=20,
                         padx=10,
@@ -200,7 +200,7 @@ class sistema_recomendacion_ciberseguridad:
                                 column=3)	
 
                 txt_recomendacion = scrolledtext.ScrolledText(recoemndacion_cuadro,width=60,height=15,font=('Helvetica', 16,'bold','italic'))
-                txt_recomendacion.insert(INSERT,traduccion_recomendacion.text)
+                txt_recomendacion.insert(INSERT,valores_item[2])
                 #txt_recomendacion.config(state=DISABLED)
                 txt_recomendacion.grid(pady=20,
                         padx=10,
