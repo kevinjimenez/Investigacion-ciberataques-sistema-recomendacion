@@ -46,7 +46,7 @@ class sistema_recomendacion_ciberseguridad:
             self.lista_anomalias.append(self.anomalia)	            
         self.master = master    
         self.treeview = ttk.Treeview(self.master,style="mystyle.Treeview")                
-        self.labelNombreAtaque = Label(self.master, text = "Sistema Recomendación de Ciberseguridad", font=('Helvetica', 18,'bold','italic'))
+        self.labelNombreAtaque = Label(self.master, text = "Cybersecurity Recommendation System", font=('Helvetica', 18,'bold','italic'))
         self.labelNombreAtaque.grid(pady=20,
                                 padx=10,
                                 row=0,
@@ -54,14 +54,14 @@ class sistema_recomendacion_ciberseguridad:
                                 columnspan=10,
                                 sticky=S+N+E+W)	
 
-        self.labelNombreAtaque = Label(self.master, text = "Nombre anomalía:", font=('Helvetica', 16,'bold','italic'))
+        self.labelNombreAtaque = Label(self.master, text = "Anomaly name:", font=('Helvetica', 16,'bold','italic'))
         self.labelNombreAtaque.grid(row=1, column=0)	
         self.combo = tkentrycomplete.AutocompleteCombobox(textvariable=self.box_value,width=50)
         self.test_list = self.lista_anomalias
         self.combo.set_completion_list(self.test_list)
         self.combo.grid(row=1, column=1, sticky=E+W)        
         conexion.close()             
-        self.botonRecomendacion = Button(self.master, text="Generar recomendación",command = self.recomendacion,font=('Helvetica', 16,'bold','italic'))
+        self.botonRecomendacion = Button(self.master, text="Generate recommendation",command = self.recomendacion,font=('Helvetica', 16,'bold','italic'))
         self.botonRecomendacion.grid(pady=20,
                                 padx=10,
                                 row=3,
@@ -108,7 +108,7 @@ class sistema_recomendacion_ciberseguridad:
                 #if numero_usuarios > 0:
                     
                 recomendaciones = correlacion_recomendaciones[correlacion_recomendaciones['numero_de_rating'] > 2].sort_values(by='rating', ascending=False).head()			
-                print("LISTA DE RECOMENDACIONES PARA: ", anomalia )				
+                print("RECOMMENDATION LIST FOR: ", anomalia )				
                 for i,j in recomendaciones.iterrows():		                        
                         nombre_anomalia = i[0]
                         recomendacion_anomalia = i[2]
@@ -126,13 +126,13 @@ class sistema_recomendacion_ciberseguridad:
                 #else:
                 #	print("Oops!  No existen usuarios .  Intenta de nuevo...")					                 
             except KeyError:
-                print("Oops!  La palabra ingresado no se encuetra registarda.  Intenta de nuevo...")
+                print("Oops!  The anomaly entered is not registered. Try again...")
                 self.vaciar_lista()
-                msg = messagebox.showinfo( "Oops", "La palabra ingresado no se encuetra registarda.  Intenta de nuevo...")			
+                msg = messagebox.showinfo( "Oops", "The anomaly entered is not registered. Try again...")			
         else:
-            print("Oops!  La palabra ingresado no se encuetra registarda.  Intenta de nuevo...")
+            print("Oops!  The anomaly entered is not registered. Try again...")
             self.vaciar_lista()
-            msg = messagebox.showinfo( "Oops", "Debes Ingresar una palabra.  Intenta de nuevo...")		
+            msg = messagebox.showinfo( "Oops", "You must enter an anomaly. Try again...")		
 
     def vaciar_lista(self):
             for i in self.treeview.get_children():
@@ -156,22 +156,16 @@ class sistema_recomendacion_ciberseguridad:
         self.treeview.column('#1', width=80, anchor='w') 
         self.treeview.column('#2', width=150, anchor='w') 
         
-        self.treeview.heading('#0', text='Anomalía')        
+        self.treeview.heading('#0', text='Similar anomalies')        
         self.treeview.heading('#1', text='Rating')			
-        self.treeview.heading('#2', text='Número ratings')
+        self.treeview.heading('#2', text='Number ratings')
         anomalia = self.box_value.get()           
         self.generar_recomendacion(anomalia)
 
     def cuadro_recomendacion(self,item,valores_item):   
-                """
-				global translator             
-				# traduccion
-                traduccion_descripcion = translator.translate(valores_item[3],dest='es')
-                traduccion_recomendacion = translator.translate(valores_item[2],dest='es')
-				"""
-				# ingles				
-
-
+                global translator             
+                #traduccion_descripcion = translator.translate(valores_item[3],dest='es')
+                #traduccion_recomendacion = translator.translate(valores_item[2],dest='es')
                 recoemndacion_cuadro = tk.Tk()                
                 recoemndacion_cuadro.configure(bg = 'beige')  
                 recoemndacion_cuadro.title(item)      
@@ -184,7 +178,7 @@ class sistema_recomendacion_ciberseguridad:
                             row=0, 
                             column=3,
                             sticky=S+N+E+W)	
-                label_descripcion = Label(recoemndacion_cuadro, text = "Descripción: ", font=('Helvetica', 20,'bold','italic'))
+                label_descripcion = Label(recoemndacion_cuadro, text = "Description: ", font=('Helvetica', 20,'bold','italic'))
                 label_descripcion.grid(pady=10,
                                 padx=10,
                                 row=1, 
@@ -199,7 +193,7 @@ class sistema_recomendacion_ciberseguridad:
                         column=0,
                         columnspan=3,
                         sticky=S+N+E+W)           # Helvetica 16 bold italic
-                label_recomendacion = Label(recoemndacion_cuadro, text = "Recomendación: ", font=('Helvetica', 20,'bold','italic'))
+                label_recomendacion = Label(recoemndacion_cuadro, text = "Recommendation: ", font=('Helvetica', 20,'bold','italic'))
                 label_recomendacion.grid(pady=10,
                                 padx=10,
                                 row=1, 
@@ -214,7 +208,7 @@ class sistema_recomendacion_ciberseguridad:
                         column=3,
                         columnspan=3,
                         sticky=S+N+E+W)                
-                boton_aceptar = Button(recoemndacion_cuadro, text="Aceptar", width = 25 , command = recoemndacion_cuadro.destroy,font=('Verdana', 12,'bold'))
+                boton_aceptar = Button(recoemndacion_cuadro, text="To accept", width = 25 , command = recoemndacion_cuadro.destroy,font=('Verdana', 12,'bold'))
                 boton_aceptar.grid(pady=20,
                                 padx=20,
                                 row=6,
@@ -266,7 +260,7 @@ def agregar_informacion_items():
 def diseno_interfaz():
         root = tk.Tk()
         root.configure(bg = 'beige')  
-        root.title('Sistema de recomendación')      
+        root.title('Recommendation system')      
         root.columnconfigure(0, weight=1)
         root.columnconfigure(1, weight=1)
         root.rowconfigure(2, weight=1)
